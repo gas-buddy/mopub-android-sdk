@@ -51,7 +51,7 @@ public class MoPubStreamAdPlacer {
                 }
             };
 
-    @NonNull private final Activity mActivity;
+    @NonNull private final Context context;
     @NonNull private final Handler mPlacementHandler;
     @NonNull private final Runnable mPlacementRunnable;
     @NonNull private final PositioningSource mPositioningSource;
@@ -133,7 +133,7 @@ public class MoPubStreamAdPlacer {
         Preconditions.checkNotNull(positioningSource, "positioningSource is not allowed to be " +
                 "null");
 
-        mActivity = activity;
+        context = activity;
         mPositioningSource = positioningSource;
         mAdSource = adSource;
         mPlacementData = PlacementData.empty();
@@ -261,7 +261,7 @@ public class MoPubStreamAdPlacer {
             }
         });
 
-        mAdSource.loadAds(mActivity, adUnitId, requestParameters);
+        mAdSource.loadAds(context, adUnitId, requestParameters);
     }
 
     @VisibleForTesting
@@ -404,7 +404,7 @@ public class MoPubStreamAdPlacer {
         }
 
         final View view = (convertView != null) ?
-                convertView : nativeAd.createAdView(mActivity, parent);
+                convertView : nativeAd.createAdView(context, parent);
         bindAdView(nativeAd, view);
         return view;
     }
